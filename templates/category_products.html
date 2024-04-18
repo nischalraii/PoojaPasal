@@ -1,0 +1,36 @@
+{% extends 'nav.html' %}
+
+{% block title %} {{ temp_cat.title }} {% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="d-flex justify-content-center">{{ temp_cat.title }}</h1>
+
+        <div class="row">
+            {% for i in items %}
+                <div class="col-sm-4 card-space">
+                    <div class="card mt-5" style="width: 18rem; height: 30rem">
+                        <img src="{{ i.image.url }}" class="card-img-top" alt="..."
+                             style="object-fit: cover; height: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.name }}</h5>
+                            <p class="card-text">{{ i.desc }}.</p>
+                            <a href="{% url 'add_to_cart' i.id %}" class="btn btn-primary">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block dropdown %}
+
+    {% for c in category %}
+        <li><a class="dropdown-item" href="{% url 'view_category' c.id %}">{{ c.title }}</a></li>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'nav.html' %}
+
+{% block title %} Cart {% endblock %}
+
+{% block css %}
+    table,th,td{
+    border: 1px solid black;
+    text-align: center;
+    }
+
+    .qty{
+    display: none;
+    }
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="d-flex justify-content-center">Cart</h1>
+        <br>
+        <table width="80%" style="margin: auto; table-layout: fixed">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Sub-Total</th>
+                <th>Actions</th>
+            </tr>
+            {% for i in items %}
+                <tr>
+                    <td>{{ i.product.name }}</td>
+                    <td>{{ i.product.price }}</td>
+                    <td>
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="button" class="qty" id="wrong-{{ forloop.counter }}" value="x">
+                            <input style="width: 50px" type="number" min="1" id="number-{{ forloop.counter }}" name="quantity"
+                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                   placeholder="{{ i.quantity }}"/>
+                            <input type="text" value="{{ i.product.id }}" name="proid" readonly hidden>
+                            <input type="submit" class="qty" id="sth-{{ forloop.counter }}" value="✓">
+                        </form>
+
+                    </td>
+                    <td>{{ i.sub_total }}</td>
+                    <td>
+                                <a href="{% url 'delete_from_cart' i.product.id %}">
+                                    <button class="btn btn-danger">Delete</button>
+                                </a>
+                        </div>
+
+                    </td>
+                </tr>
+
+                <script>
+                    Qty = document.querySelector('#number-{{ forloop.counter }}')
+
+                    Qty.addEventListener("change", (e) => {
+                        const initial = document.querySelector("#number-{{ forloop.counter }}").placeholder;
+                        const value = e.currentTarget.value;
+                        if (value === "") {
+                            document.querySelector("#sth-{{ forloop.counter }}").style.display = "none";
+                            document.querySelector("#wrong-{{ forloop.counter }}").style.display = "none";
+                        }
+                        if (value === initial) {
+                            document.getElementById("#sth-{{ forloop.counter }}").style.display = "none";
+                            document.getElementById("#wrong-{{ forloop.counter }}").style.display = "none";
+                        }
+                        if (value !== initial) {
+                            document.querySelector("#sth-{{ forloop.counter }}").style.display = "initial";
+                            document.querySelector("#wrong-{{ forloop.counter }}").style.display = "initial";
+                        }
+
+                        console.log(initial);
+                        console.log(value);
+
+                    })
+
+                    document.getElementById("wrong-{{ forloop.counter }}").addEventListener("click", () => {
+                        {#const initial = document.getElementById("number-{{ forloop.counter }}").placeholder;#}
+                        document.getElementById("number-{{ forloop.counter }}").value = "";
+                        document.querySelector("#sth-{{ forloop.counter }}").style.display = "none";
+                        document.querySelector("#wrong-{{ forloop.counter }}").style.display = "none";
+                    })
+                </script>
+
+            {% endfor %}
+            <tr style="text-align: end; font-weight: bold">
+                <td></td>
+                <td></td>
+                <td>Grand Total : </td>
+                <td>{{ total }}</td>
+                <td></td>
+            </tr>
+
+        </table>
+    </div>
+{% endblock %}
+
+{% block dropdown %}
+
+    {% for c in category %}
+        <li><a class="dropdown-item" href="{% url 'view_category' c.id %}">{{ c.title }}</a></li>
+    {% endfor %}
+
+{% endblock %}
+
+{% block items_count %}
+    {{ count }}
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

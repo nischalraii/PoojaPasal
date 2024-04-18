@@ -1,0 +1,16 @@
+{%  extends 'nav.html' %}
+
+{% block body %}
+	<u><h1>Details Page</h1></u>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <img src="{{ product.image.url }}">
+        </div>
+        <div class="col-lg-6">
+            <h2>{{ product.name }}</h2><br>
+            <div>{{ product.desc }}</div>
+        </div>
+    </div>
+
+{% endblock %}
