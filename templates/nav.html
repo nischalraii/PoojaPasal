@@ -9,31 +9,47 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
             integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../static/css/style2.css">
     <title>{% block title %} {% endblock %}</title>
-    <style>{% block css %} {% endblock %}</style>
+    <style>
+
+        .btn-search{
+            background-color: #ff8c3f;
+            border: 1px solid #722e00;
+        }
+
+        .bdr-right{
+            border-right: 1px solid #722e00;;
+        }
+        .nav-link{
+            text-decoration: none;
+        }
+
+
+        {% block css %} {% endblock %}</style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg px-5" style="background-color: #ffa970;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="../">Navbar</a>
+        <a class="navbar-brand" href="../">PoojaPasal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../">Home</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-5">
+                <li class="nav-item bdr-right">
+                    <a class="nav-link active " aria-current="page" href="../">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item bdr-right">
+                    <a class="nav-link" href="#">Contact</a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="../signin" class="nav-link">Login</a>
-                </li>
+                {% if user.is_authenticated %}
+                {% else %}
+
+            {% endif %}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -46,11 +62,17 @@
                         {% endblock %}
                     </ul>
                 </li>
-                {% block items_count %}
 
-                {% endblock %}
 
             </ul>
+            {% if user.is_authenticated %}
+            <ul class="navbar mb-2 mb-lg-0 px-5">
+                <li class="nav-link"><a href="{% url 'cart' %}" class="nav-link">My Cart</a></li>
+{#                {% block items_count %}#}
+{##}
+{#                {% endblock %}#}
+            </ul>
+        {% endif %}
 
 
             <form class="d-flex" role="search">
@@ -58,8 +80,16 @@
                     <div>Hello, {{ user.username }}</div>
                     <a href="../logout">Logout</a>
                 {% else %}
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-5">
+                    <li class="nav-item bdr-right">
+                        <a href="../signin" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../signup" class="nav-link">SignUp</a>
+                    </li>
+                    </ul>
+{#                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
+{#                    <button class="btn btn-search" style="" type="submit">Search</button>#}
                 {% endif %}
             </form>
         </div>

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm
 from .models import User
+from cart.models import *
 
 
 # Create your views here.
@@ -17,6 +18,8 @@ def signup(request):
             messages.success(request, "User Registered Successfully!")
 
             login(request, user)
+            create = Cart.objects.create(user=user)
+            create.save()
             return redirect('user_home')
 
     else:

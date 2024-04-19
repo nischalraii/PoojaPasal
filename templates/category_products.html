@@ -4,7 +4,6 @@
 
 {% block body %}
     <div class="container">
-
         <h1 class="d-flex justify-content-center">{{ temp_cat.title }}</h1>
 
         <div class="row">
@@ -13,10 +12,10 @@
                     <div class="card mt-5" style="width: 18rem; height: 30rem">
                         <img src="{{ i.image.url }}" class="card-img-top" alt="..."
                              style="object-fit: cover; height: 18rem;">
-                        <div class="card-body">
+                        <div class="card-body bg-main">
                             <h5 class="card-title">{{ i.name }}</h5>
                             <p class="card-text">{{ i.desc }}.</p>
-                            <a href="{% url 'add_to_cart' i.id %}" class="btn btn-primary">Add to Cart</a>
+                            <a href="{% url 'add_to_cart' i.id %}" class="btn btn-details">Add to Cart</a>
                         </div>
                     </div>
                 </div>

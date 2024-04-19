@@ -4,7 +4,7 @@
 
 {% block body %}
     {% load static %}
-    <h1 class="d-flex justify-content-start"><u>All Items</u></h1>
+    <h1 class="d-flex justify-content-start"><u>ALL ITEMS</u></h1>
 
     <div class="row">
         {% for p in product %}
@@ -12,10 +12,10 @@
                 <div class="card mt-5" style="width: 18rem; height: 30rem">
                     <img src="{{ p.image.url }}" class="card-img-top" alt="..."
                          style="object-fit: cover; height: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ p.name }}</h5>
+                    <div class="card-body bg-main" >
+                        <span style="font-size: larger; font-weight: bold">{{ p.name }}</span>  Rs.{{ p.price }}
                         <p class="card-text">{{ p.desc }}.</p>
-                        <a href="{% url "product_details" p.id %}" class="btn btn-primary">Details</a>
+                        <a href="{% url "product_details" p.id %}" class="btn btn-details">Details</a>
                     </div>
                 </div>
             </div>

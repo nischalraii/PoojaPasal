@@ -27,9 +27,13 @@ def index(request):
 @login_required(redirect_field_name="")
 def user_home(request):
     category = Category.objects.all()
+    product = Product.objects.all()
+    user = request.user
 
     context = {
         'category': category,
+        'user': user,
+        'product': product,
     }
     # if request.user.is_authenticated:
     return render(request, "user_home.html", context)

@@ -1,8 +1,25 @@
 {% extends 'nav.html' %}
 
 {% block body %}
+    <h2>All Items</h2>
 
-This is User Home.
+    {% load static %}
+
+    <div class="row">
+        {% for p in product %}
+            <div class="col-sm-4 card-space">
+                <div class="card mt-5" style="width: 18rem; height: 30rem">
+                    <img src="{{ p.image.url }}" class="card-img-top" alt="..."
+                         style="object-fit: cover; height: 18rem;">
+                    <div class="card-body bg-main" >
+                        <span style="font-size: larger; font-weight: bold">{{ p.name }}</span>  Rs.{{ p.price }}
+                        <p class="card-text">{{ p.desc }}.</p>
+                        <a href="{% url 'add_to_cart' p.id %}" class="btn btn-details">Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block dropdown %}

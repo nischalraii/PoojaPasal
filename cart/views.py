@@ -38,14 +38,14 @@ def add_to_cart(request, pid):
     prod = Product.objects.get(id=pid)
     user = request.user
 
-    temp_cart = Cart.objects.get(user=user)
-    if temp_cart:
-        pass
-    else:
-        temp_cart = Cart.objects.create(user=user)
-        temp_cart.save()
+    temp_cart = Cart.objects.get_or_create(user=user)
+    # if temp_cart:
+    #     pass
+    # else:
+    #     temp_cart = Cart.objects.create(user=user)
+    #     temp_cart.save()
 
-    cart_item = CartItems.objects.create(cart=temp_cart, product=prod)
+    cart_item = CartItems.objects.create(cart=temp_cart[0], product=prod)
     if cart_item is not None:
         cart_item.save()
         messages.success(request, "Item added to cart successfully!")
